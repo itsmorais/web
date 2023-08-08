@@ -14,7 +14,7 @@
 
 Arrow function possui uma sintaxe mais curta quando comparada com a função anônima.
 Arrow functions são sempre anônimas. A seguir tem-se três declarações distintas de arrow function:
-```
+```js
 const mult = (a: number, b: number): number => {
 return a * b;
 };
@@ -27,20 +27,20 @@ precisará ter a instrução return.
 
 
 1. Para criar uma cópia do array podemos usar o spread operator [...array]:
-```
+```js
 const w = [4, 2, 8, 5];
 const z = [...w]; //cria uma cópia do array w
 ```
 2. Remover elementos do array: o método splice(índice, quant) é usado para remover quant elementos a partir da
 posição índice do array. No exemplo a seguir serão removidos 3 elementos a partir da 3ª posição do array w.
-```
+```js
 const w = [4, 2, 8, 5, 1, 9, 7];
 w.splice(2,3); // Remove os elementos 8,5 e 1
 ```
 ### Os métodos forEach, map e reduce são comumente usados para operar sobre arrays, mas observe que eles são usados em situações distintas:
 
 - forEach não possui retorno, pois opera sobre cada elemento do array atual;
-```
+```js
 const nomes = ["Ana","Pedro","Lucas","Maria"];
 
 nomes.forEach(nome => console.log(`<div>${nome}</div>`));
@@ -64,7 +64,7 @@ nomes.forEach(function(item,indice,array){
 
 -  map retorna um novo array, onde cada elemento do array atual sofre a operação. Ele não altera o array atual;
 
-```
+```js
 const nomes:string[] = ["Ana","Pedro","Lucas","Maria"];
 const idades:number[] = [17,22,45,50];
 
@@ -79,7 +79,7 @@ const dobraIdade = idades.map(idade => idade*2);
 ```
 
 - reduce retorna um único valor. Ele não altera o array atual.
-```
+```js
 const letrass = ['a','b','c','d','e']
 
 const s1 = letrass.reduce( (soma, item) => soma + item.toUpperCase() );
@@ -90,4 +90,33 @@ console.log(s1); //retorna aBCDE
 const letras = ['a','b','c','d','e']
 const s2 = letras.reduce( (soma, item) => soma + item.toUpperCase(), "");
 console.log(s2); //retorna ABCDE
+```
+### JSON Javascript object notation
+• parse: recebe como parâmetro uma string JSON e retorna o objeto JS correspondente. Esse processo é chamado de
+deserialization;
+
+• stringify: recebe como parâmetro um objeto nativo e retorna uma string JSON. Esse processo é chamado de
+serialization.
+```js
+class Cliente {
+    constructor(private nome:string, private idade:number){
+
+    }
+    print(){
+        console.log(this.nome+" "+this.idade);
+    }
+}
+
+let c = new Cliente("Michael",25); // Objeto nativo
+
+let d = JSON.stringify(c); // Converte objeto nativo para string no formato JSON;
+
+console.log(typeof(c)); // object
+console.log(typeof(d)); // string
+
+console.log(c); // Cliente { nome: 'Michael', idade: 25 }
+console.log(d) // {"nome":"Michael","idade":25}
+
+// //deserialization
+console.log(JSON.parse(d)) // { nome: 'Michael', idade: 25 }
 ```
