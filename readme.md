@@ -120,3 +120,57 @@ console.log(d) // {"nome":"Michael","idade":25}
 // //deserialization
 console.log(JSON.parse(d)) // { nome: 'Michael', idade: 25 }
 ```
+#### Estruturação e desestruturação
+
+No exemplo a seguir a atribuição por desestruturação (destructuring assignment) é usada para copiar os valores das
+propriedades bairro e cidade do objeto JSON para as variáveis bairro e cidade.
+A desestruturação ocorre entre chaves {} no lado esquerdo da atribuição.
+```js
+const endereco = {
+    logradouro: 'Rua um',
+    nro: 123,
+    bairro: 'Vila Jardim',
+    cep: 12345678,
+    cidade: 'Jacareí',
+    uf:'SP'
+};
+
+const {bairro,cidade} = endereco; // Vila Jardim Jacareí
+
+```
+Na estruturação, variáveis são usadas para compor objetos JSON, os nomes das variáveis serão as propriedades do objeto e os valores das variáveis serão os valores das propriedades. 
+No exemplo a seguir, as variáveis nome, idade e peso serão as propriedades do objeto JSON. A estruturação ocorre entre chaves
+{} no lado direito da atribuição
+
+```js
+
+const nome = "Michael"
+const idade = 25
+const peso = 75
+
+const pessoa = {nome,idade,peso} //{ nome: 'Michael', idade: 25, peso: 75 }
+
+```
+
+A desestruturação de arrays é feita usando colchetes [] no lado esquerdo da atribuição. A desestruturação permite extrair
+elementos de um array e atribuí-los às variáveis individuais. No exemplo a seguir os 3 primeiros elementos do array serão
+copiados, respectivamente, para as variáveis nome, carro e fruta. Observe que o 4º elemento do array não foi copiado.
+```js
+ const personagens = ["Naruto","Vegeta","Eren","Hyoga"];
+const [naruto,dbz,snk,cdz] = personagens //Naruto Vegeta Eren Hyoga
+```
+
+A estruturação de arrays é usada para criar arrays combinando elementos de outras variáveis. Ela é realizada usando
+colchetes [] no lado direito da atribuição. No exemplo a seguir os valores das variáveis foram usados para compor os valores
+do array a ser criado:
+```js
+const base = 2;
+const altura = 3;
+const profundidade = 4;
+
+const medidas = [base,altura,profundidade]; //[ 2, 3, 4 ]
+
+```
+
+
+
