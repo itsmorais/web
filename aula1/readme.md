@@ -287,3 +287,43 @@ console.log("Soma:", Calcular.somar(2, 3));
 
 
 ```
+
+#### Export e import 
+No contexto do TS um módulo é um arquivo que exporta alguma entidade (variável, função, classe, interface ou tipo). 
+Os pacotes são pastas, na estrutura de arquivos do projeto, que possuem algum módulo que exporta alguma entidade.
+
+
+A exportação e importação é um recurso importante na modularização e reutilização de código. Dado que o código pode ser
+organizado em pastas e módulos e consumidos em diferentes partes do programa.
+
+- exemplo de exportação por default
+um arquivo pode ter apenas uma entidade exportada por default
+```ts
+    export default function somar(x: number, y: number): number {
+    return x + y;
+}
+
+```
+- exemplo de exportação nomeada
+o termo export vem antes de cada entidade exportada
+```ts
+export function concatenar(x: string, y: string): string {
+    return x + y;
+};
+
+export const carro = "Uno";
+```
+
+- exemplo de exportação agrupada
+Exportação agrupada: as entidades exportadas são estruturadas em um objeto JSON.
+```ts
+function msg(): void {
+    console.log("Ola");
+};
+
+function resposta(): void {
+    console.log("Boa noite");
+};
+
+export { msg, resposta };
+```
