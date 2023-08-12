@@ -65,4 +65,16 @@ console.log(resultado);
 console.log('Bom dia');
 } )();
 ```
-#### Usando o recurso de criar e chamar uma função anonimamente. Codificar uma função que recebe os números 2 e 3, e imprime no terminal a soma deles.
+-  Usando o recurso de criar e chamar uma função anonimamente. Codificar uma função que recebe os números 2 e 3, e imprime no terminal a soma deles.
+
+#### Exercício 8 – O método regioes da classe Ibge faz uma requisição no webservice do IBGE para obter as regiões do país. Fazer
+a chamada do método regioes para listar as regiões do país. Lembre-se que um método assíncrono retorna uma Promise.
+Para mais detalhes sobre o webservice de localidades do IBGE acesse https://servicodados.ibge.gov.br/api/docs/localidades.
+
+#### Exercício 9 – A URL http://servicodados.ibge.gov.br/api/v1/localidades/regioes/3/estados retorna os estados da região
+sudeste, o id da região precisa ser passado na URL. Adicionar na classe Ibge, do arquivo exercicio8.ts, um método que recebe
+o id da região e retorna os estados dessa região.
+
+#### Exercício 10 – Codificar uma requisição na API http://servicodados.ibge.gov.br/api/v1/localidades/estados e exibir os nomes
+dos estados do país no terminal.
+
