@@ -2,11 +2,11 @@
 ##### Objetivo:
 - Funções; ✔️ 07/08/2023
 - Arrays: métodos forEach, map e reduce; ✔️ 07/08/2023
--  JSON (JavaScript Object Notation);
-- Estruturação e desestruturação;
-- Async e await;
-- Classes;
-- Export e import.
+-  JSON (JavaScript Object Notation); ✔️ 12/08/2023
+- Estruturação e desestruturação; ✔️ 12/08/2023
+- Async e await; ✔️ 12/08/2023
+- Classes; ✔️ 12/08/2023
+- Export e import. ✔️ 12/08/2023
 
 ### Funções & Arrays Methods (forEach, map e reduce)
 
