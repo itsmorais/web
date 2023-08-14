@@ -179,4 +179,43 @@ Requisição usando método POST:
 
 
 - O método use é usado para receber qualquer rota não mapeada.
-````ts
+```ts
+app.use((req, res) => {
+    res.send("URL DESCONHECIDA")
+});
+```
+
+### Rotas para arquivo estático
+Um arquivo estático é aquele arquivo que será enviado para o cliente da forma como ele se encontra, isto é, ele não será executado no servidor.
+- HTML, CSS, PDF, TXT e imagens são alguns exemplos de formatos de arquivos estáticos.
+- Para testar, crie a pasta public na raiz do projeto e insira dois arquivos.txt dentro dela.
+```ts
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+const app = express();
+
+// para aceitar parâmetros no formato JSON
+app.use(express.json());
+
+// rota para um arquivo específico
+app.use("/manha",express.static("public/dia.txt"));
+
+// rota para a pasta public
+app.use("/arquivo",express.static("public"));
+
+app.listen(PORT, () => {
+    console.log(`Rodando na porta ${PORT}`)
+})
+
+
+```
+Requisição para o arquivo dia.txt
+
+http://localhost:3000/manha
+
+Requisição para o arquivo noite.txt
+http://localhost:3000/arquivo/noite.txt
