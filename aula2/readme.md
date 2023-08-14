@@ -335,3 +335,15 @@ app.listen(PORT, () => {
 })
 ```
 ![image](https://github.com/itsmorais/web-II/assets/53665466/60ebad23-55f6-4f9f-8f0c-714a7a0c064e)
+
+### Testando as rotas criadas
+- Requisição tipo GET -> http://localhost:3000/matematica Função soma
+![image](https://github.com/itsmorais/web-II/assets/53665466/8bddb799-6692-4e03-87e7-14088fe9305f)
+- Requisição tiṕo POST -> http://localhost:3000/matematica Função subtrair
+![image](https://github.com/itsmorais/web-II/assets/53665466/2453a976-e7a9-4e88-840f-be1c2595eb04)
+- Requisição tipo GET -> http://localhost:3000/texto Função concatena
+![image](https://github.com/itsmorais/web-II/assets/53665466/a7f1a12d-a050-4655-9229-2a3bffe3f884)
+- Requisição tipo POST -> http://localhost:3000/texto Função inverte
+![image](https://github.com/itsmorais/web-II/assets/53665466/8e9daf8b-a7ea-4bb1-93df-476ed1bd93c5)
+
+
