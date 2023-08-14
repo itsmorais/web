@@ -219,3 +219,119 @@ http://localhost:3000/manha
 
 Requisição para o arquivo noite.txt
 http://localhost:3000/arquivo/noite.txt
+
+### Hierarquia de rotas
+É uma abordagem que permite organizar e estruturar as rotas de forma eficiente e modular.
+
+No express a hierarquia de rotas é criada usando o conceito de roteadores(ROUTER)
+
+Vamos criar os arquivos Matematica.ts e Texto.ts que recebem os objetos Request e Response criados pelo servidor web e retornam promises.
+
+- Controllers/Matematica.ts
+```ts
+import { Request, Response } from "express";
+
+class Matematica {
+    public async somar(req: Request, res: Response): Promise<Response> {
+        let { x, y } = req.body;
+        const r = parseFloat(x) + parseFloat(y);
+
+        if (isNaN(r)) {
+            return res.json({ error: "Parâmetros incorretos" });
+        }
+        return res.json({ r });
+    }
+}
+
+export default new Matematica();
+```
+- Controllers/Texto.ts
+```ts
+import { Request, Response } from "express";
+
+class Texto {
+    public async concatenar(req: Request, res: Response): Promise<Response> {
+        let { x, y } = req.body;
+
+        if (x === undefined || y == undefined) {
+            return res.status(400).send("Parâmetros incorretos");
+
+        }
+        const r = x + y;
+        return res.json({ r });
+    }
+
+    public async inverter(req: Request, res: Response): Promise<Response> {
+        let { entrada } = req.body;
+
+        if (entrada == undefined) {
+            return res.status(400).send("Parâmetro incorreto");
+        }
+        const r = entrada.split("").reverse().join('');
+        return res.json({ r });
+    }
+}
+
+export default new Texto();
+```
+- routes/matematica.ts
+```ts
+import { Router } from "express";
+import Matematica from "../controllers/Matematica";
+
+const routes = Router();
+
+routes.get("/", Matematica.somar);
+routes.post("/", Matematica.subtrair);
+
+export default routes;
+```
+- routes/texto.ts
+```ts
+import { Router } from "express";
+import Texto from "../controllers/Texto";
+
+const routes = Router();
+
+routes.get("/", Texto.concatenar);
+routes.post("/", Texto.inverter);
+
+export default routes;
+```
+- routes/index.ts
+```ts
+import { Router, Request, Response } from "express";
+import matematica from './matematica';
+import texto from './texto';
+
+const routes = Router();
+
+routes.use("/matematica", matematica);
+routes.use("/texto", texto);
+
+routes.use((req:Request,res:Response)=> res.json({error:"Requisição desconhecida!"}))
+
+export default routes;
+```
+
+- src/index.ts
+```ts
+import express from 'express';
+import dotenv from 'dotenv';
+import routes from './routes';
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+const app = express();
+
+// para aceitar parâmetros no formato JSON
+app.use(express.json());
+
+app.use(routes);
+
+app.listen(PORT, () => {
+    console.log(`Rodando na porta ${PORT}`)
+})
+```
+![image](https://github.com/itsmorais/web-II/assets/53665466/60ebad23-55f6-4f9f-8f0c-714a7a0c064e)
