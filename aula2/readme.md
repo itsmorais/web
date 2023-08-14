@@ -63,3 +63,103 @@ Com express podemos:
 - Manipular middlewares
 - Fornecer respostas em formato JSON,text,HTML,etc...
 
+### Com a configuração feita vamos para a Definição de rotas
+Uma rota define um caminho específico no servidor para o qual as solicitações dos clientes são direcionadas e como essas
+solicitações são tratadas. O navegador ou app de celular são exemplos de clientes.
+A definição de uma rota é formada pela combinação da URL com o método HTTP:
+Os métodos mais comuns são:
+- GET :usado para solicitar dados do servidor
+- POST :usado para enviar dados ao servidor para serem processados.
+- PUT :usado para atualizar um recurso existente no servidor
+- DELETE: usado para excluir um recurso no servidor.
+
+Criando rota de teste
+```ts
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+// será usado 3000 se a variável de ambiente não tiver sido definida
+const PORT = process.env.PORT || 3000;
+// cria o servidor e coloca na variável app
+const app = express();
+// para aceitar parâmetros no formato JSON
+app.use(express.json());
+// inicializa o servidor na porta especificada
+app.listen(PORT, () => {
+console.log(`Rodando na porta ${PORT}`);
+});
+// define a rota para a raiz GET /
+app.get("/", (req, res) => res.send("Método HTTP GET"))
+// define a rota para GET /teste
+app.get("/teste", (req, res) => res.send("Método HTTP GET"));
+// define a rota para POST /teste
+app.post("/teste", (req, res) => res.send("Método HTTP POST"));
+// define a rota para PUT /teste
+app.put("/teste", (req, res) => res.send("Método HTTP PUT"));
+// define a rota para DELETE /teste
+app.delete("/teste", (req, res) => res.send("Método HTTP DELETE"));
+```
+Podemos enviar dados de duas formas:
+- Pelos parâmetros da URL:
+  
+    - http://localhost:3000/soma/2/10
+      
+```ts
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+const app = express();
+
+// para aceitar parâmetros no formato JSON
+app.use(express.json());
+
+// Via parâmetros da URL
+app.get("/soma/:x/:y", (req, res) => {
+    const { x, y } = req.params;
+
+    const numero1 = parseInt(x);
+    const numero2 = parseInt(y);
+
+    res.send("Soma dos números:" + (numero1 + numero2));
+})//http://localhost:3000/soma/2/10
+
+app.listen(PORT, () => {
+    console.log(`Rodando na porta ${PORT}`)
+})
+
+
+```
+- Pelo corpo da requisição:
+    - Body da requisição enviado via ThunderClient
+  ![image](https://github.com/itsmorais/web-II/assets/53665466/231c0cc9-5c0a-487e-aa74-5e28615325f8)
+
+  
+```ts
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+const app = express();
+
+// para aceitar parâmetros no formato JSON
+app.use(express.json());
+
+// Via body formato JSON
+app.get("/soma", (req, res) => {
+    const { x, y } = req.body;
+
+    res.send("Soma dos números:" + (x + y));
+})//http://localhost:3000/soma
+
+app.listen(PORT, () => {
+    console.log(`Rodando na porta ${PORT}`)
+})
+
+
+```
+  
