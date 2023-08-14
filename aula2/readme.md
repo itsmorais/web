@@ -162,4 +162,21 @@ app.listen(PORT, () => {
 
 
 ```
-  
+
+- O método all é usado para mapear rotas uriundas de qualquer método HTTP(GET, POST, etc..)
+```ts
+app.all("/tudo",(req,res)=>{
+    let {x,y} = req.body;
+
+    res.send(`ALL ${x} e ${y}`);
+});
+```
+Requisição usando método GET:
+![image](https://github.com/itsmorais/web-II/assets/53665466/6adb8eb9-34eb-4657-9e32-432491fd60a2)
+
+Requisição usando método POST:
+![image](https://github.com/itsmorais/web-II/assets/53665466/2972ce87-ce89-447c-b45a-69a4b3741ca8)
+
+
+- O método use é usado para receber qualquer rota não mapeada.
+````ts
