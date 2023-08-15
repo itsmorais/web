@@ -6,12 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node ./src/index",
+    "um": "ts-node ./src/exemplo1",
+    "dois": "ts-node ./src/exemplo2",
+    "tres": "ts-node ./src/exemplo3",
+    "quatro": "ts-node ./src/exemplo4",
+    "cinco": "ts-node ./src/exemplo5",
+    "seis": "ts-node ./src/exemplo6",
     "sete": "ts-node ./src/exemplo7",
     "oito": "ts-node ./src/exemplo8",
     "nove": "ts-node ./src/exemplo9",
     "dez": "ts-node ./src/exemplo10"
-
-
   },
   "keywords": [],
   "author": "",
