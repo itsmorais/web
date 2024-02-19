@@ -79,4 +79,97 @@ __v: 0
 }
 ```
 
+### Diferenças entre esquema, modelo e documento
+- Esquema
+   - É uma estrutura que define campos, tipos de dados e opções de validação para documentos em uma coleção
+ - Modelo
+    - É uma representação compilada de um esquema.
+    - É usado para interagir com uma coleção específica
+    - Responsável por realizar operações CRUD na coleção associada ao esquema
+ - Documento
+    - É uma instância de um modelo, representando um registro na coleção
+    - São objetos reais armazenados no MongoDB.
+    - Seguem a estrutura definida pelo esquema associado ao modelo.
 
+## Relacionamento entre documentos
+ No MongoDB implementamos o mesmo conceito de chave estrangeira(Aplicada em bancos relacionais) usando relacionamento entre os documentos.
+
+
+- O campo user, definido no esquema SpentSchema, recebe como conteúdo o
+identificador de um documento da coleção users. A referência é definida através da propriedade ref:
+ ```ts
+const SpentSchema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true
+  },
+  description: { type: String, maxlength: 30, required: true },
+  value: { type: Number, required: true }
+});
+
+// Para construir um documento precisamos fornecer no campo user o id de um documento disponível na coleção users:
+
+const gasto = new Spent({
+  user: '659acc6bd202c436bb835d2d',
+  description: 'Combustível',
+  value: 10.25
+  });
+```
+
+### Subdocumentos
+É possível representação a coleção SPENTS como subdocumento do esquema users no Mongoose. 
+Isso significa que os documentos da coleção spents estarão alinhados dentro dos documentos da coleção users.
+
+- SpentSchema é definido independentemente e representa a estrutura para os documentos na coleção spents;
+- No UserSchema, o campo spents é definido como um array de subdocumentos usando o esquema SpentSchema.
+Isso permite que vários documentos da coleção spents sejam aninhados dentro de cada documento da coleção
+users.
+
+```ts
+const SpentSchema = new Schema({
+description: { type: String, maxlength: 30, required: true },
+value: { type: Number, required: true }
+});
+
+// define o schema
+const UserSchema = new Schema({
+mail: { type: String, maxLength: 50, required: true },
+password: { type: String, minlength: 6, maxlength: 10, select: false, required: true },
+spents: [SpentSchema]
+});
+
+const object = new User({
+mail:"b@teste.com",
+password:"abcdef",
+spents: [
+{ description: "Oficina", value: 191.75 },
+{ description: "Mercado", value: 28.42 }
+]
+});
+
+const resp = await object.save();
+```
+Na MongoDB será criada somente a coleção users e o um documento terá a seguinte estrutura. Observe que cada subdocumento possui o seu próprio identificador:
+
+```json
+{
+mail: 'b@teste.com',
+password: 'abcdef',
+spents: [
+{
+description: 'Oficina',
+value: 191.75,
+_id: new ObjectId('659b3ef2d5f3a37ea511b9df')
+},
+{
+description: 'Mercado',
+value: 28.42,
+_id: new ObjectId('659b3ef2d5f3a37ea511b9e0')
+}
+],
+_id: new ObjectId('659b3ef2d5f3a37ea511b9de')
+}
+```
+
+A abordagem de subdocumento pode ser útil se os gastos estão fortemente relacionados aos usuários e não precisam ser acessados independentemente.
+
+No entanto, a escolha entre incorporar ou manter a relação como referência depende dos requisitos específicos da aplicação.
