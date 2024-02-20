@@ -173,3 +173,50 @@ _id: new ObjectId('659b3ef2d5f3a37ea511b9de')
 A abordagem de subdocumento pode ser útil se os gastos estão fortemente relacionados aos usuários e não precisam ser acessados independentemente.
 
 No entanto, a escolha entre incorporar ou manter a relação como referência depende dos requisitos específicos da aplicação.
+
+## Validações no Mongoose
+
+Validações são definidas no esquema e aplicadas quando tentamos criar ou atualizar um documento usando um modelo
+
+
+
+```ts
+
+import mongoose from "mongoose";
+const { Schema } = mongoose;
+const UserSchema = new Schema({
+  mail: {
+    type: String,
+    maxlength: [50, "O e-mail pode ter no máximo 30 caracteres"],
+    unique: true,
+    required: [true, "O e-mail é obrigatório"],
+    validate: {
+      validator: function (value: string) {
+        // expressão regular para validar o formato do e-mail
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(value);
+      },
+      message: (props: any) => `${props.value} não é um formato de e-mail válido`,
+    }
+  },
+  password: {
+    type: String,
+    trim: true,
+    minlength: [6, "A senha precisa ter no mínimo 6 caracteres"],
+    maxlength: [10, "A senha precisa ter no máximo 10 caracteres"],
+    select: false,
+    required: [true, "A senha é obrigatória"],
+  }
+});
+
+```
+Explicando o exemplo acima:
+- A variável document recebe o documento criado usando o modelo
+User.
+- O método validateSync é utilizado para verificar se os campos estão em conformidade com as regras definidas no
+esquema.
+
+Assim a validação é feita antes de salvar no BD usando o método save
+
+Suponha que o usuário esteja tentando criar um usuário com um e-mail que não atenda à expressão regular definida no esquema. O método validateSync identificará esse problema e retornará um objeto de erro contendo informações específicas sobre a falha de validação no e-mail.
+
