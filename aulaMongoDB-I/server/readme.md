@@ -4,7 +4,7 @@
  - Esquema dinâmico: Ao contrário dos DBS relacionais, o MongoDB permite esquemas dinâmicos, o que significa que os documentos em uma coleção podem ter campos diferentes sem a necessidade de um esquema fixo, como nas tabelas de um SGBD-R
  - Consultas baseadas em documentos: Consultas utilizam sintaxe de documentos BSON, o que facilita a interação com os dados. No sistema relacional são feitas usando a linguagem SQL.
 
-### Os dados são organizados hierarquicamente da seguinte forma:
+#### Os dados são organizados hierarquicamente da seguinte forma:
 - BD
   - É a unidade mais alta de armazenamento de dados.
   - Podem existir vários bancos e eles são independentes entre si.
@@ -79,7 +79,7 @@ __v: 0
 }
 ```
 
-### Diferenças entre esquema, modelo e documento
+#### Diferenças entre esquema, modelo e documento
 - Esquema
    - É uma estrutura que define campos, tipos de dados e opções de validação para documentos em uma coleção
  - Modelo
@@ -115,7 +115,7 @@ const gasto = new Spent({
   });
 ```
 
-### Subdocumentos
+#### Subdocumentos
 É possível representação a coleção SPENTS como subdocumento do esquema users no Mongoose. 
 Isso significa que os documentos da coleção spents estarão alinhados dentro dos documentos da coleção users.
 
